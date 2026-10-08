@@ -1,0 +1,50 @@
+{
+  "pool_meta": {
+    "n_monday_flows": 131667,
+    "n_friday_flows": 294000,
+    "n_tuesday_flows": 108546,
+    "note": "Monday/Friday/Tuesday share the same CIC-IDS2017 testbed, hosts, and network configuration per UNB documentation (captured July 3-7 2017); only injected attack content differs by day. Monday=pure benign, Friday=botnet/port-scan/DDoS, Tuesday=brute-force FTP/SSH."
+  },
+  "K_a_monday_vs_friday": {
+    "pair": "monday_vs_friday",
+    "same_testbed": true,
+    "n_used": 40000,
+    "full_auc": [
+      0.729707877126607,
+      0.11997531723607163
+    ],
+    "env_auc": [
+      0.7004565168153499,
+      0.13369508124719492
+    ],
+    "beh_auc": [
+      0.7106659648221244,
+      0.12100620966480709
+    ],
+    "ttl_auc": [
+      0.6049626418586489,
+      0.03646378870645867
+    ]
+  },
+  "K_b_monday_vs_tuesday": {
+    "pair": "monday_vs_tuesday",
+    "same_testbed": true,
+    "n_used": 40000,
+    "full_auc": [
+      0.6773658509773303,
+      0.011603177235267596
+    ],
+    "env_auc": [
+      0.5676103534342348,
+      0.020858879460141273
+    ],
+    "beh_auc": [
+      0.666562807742598,
+      0.0180769588741406
+    ],
+    "ttl_auc": [
+      0.5241424372701882,
+      0.05864758349787166
+    ]
+  }
+}

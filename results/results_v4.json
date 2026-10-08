@@ -1,0 +1,82 @@
+{
+  "meta": {
+    "design": "Train honeypot(1) vs production-A(0); measure false-positive rate when the frozen model is applied to an independent production-B corpus (true label 0). High transfer FPR = corpus-identity classifier, not honeypot detector.",
+    "production_A_first_pass": "CIC-IDS2017 Tuesday",
+    "production_B": "FIRST-2015"
+  },
+  "L_transfer": [
+    {
+      "train": "honeypot_vs_cicids",
+      "transfer_to": "first2015",
+      "features": "all",
+      "n_train_each": 20000,
+      "in_domain_auc": 0.9999984854739983,
+      "in_domain_accuracy": 0.9997783196630459,
+      "in_domain_honeypot_recall": 0.9994143484626647,
+      "in_domain_production_fpr": 0.0,
+      "transfer_production_fpr": 0.0007271568858294436,
+      "transfer_mean_p_honeypot": 0.05962795474466499,
+      "n_transfer_prod_flows": 144398
+    },
+    {
+      "train": "honeypot_vs_cicids",
+      "transfer_to": "first2015",
+      "features": "env",
+      "n_train_each": 20000,
+      "in_domain_auc": 0.9999962920225476,
+      "in_domain_accuracy": 0.9988915983152294,
+      "in_domain_honeypot_recall": 0.9976573938506589,
+      "in_domain_production_fpr": 0.0003566969859104691,
+      "transfer_production_fpr": 0.0006509785454092162,
+      "transfer_mean_p_honeypot": 0.05456708263767951,
+      "n_transfer_prod_flows": 144398
+    },
+    {
+      "train": "honeypot_vs_first2015",
+      "transfer_to": "cicids",
+      "features": "all",
+      "n_train_each": 20000,
+      "in_domain_auc": 0.9999425555875815,
+      "in_domain_accuracy": 0.9984185117363077,
+      "in_domain_honeypot_recall": 0.9986573176189766,
+      "in_domain_production_fpr": 0.0018828845791752965,
+      "transfer_production_fpr": 0.054548302102334495,
+      "transfer_mean_p_honeypot": 0.20682040104956828,
+      "n_transfer_prod_flows": 108546
+    },
+    {
+      "train": "honeypot_vs_first2015",
+      "transfer_to": "cicids",
+      "features": "env",
+      "n_train_each": 20000,
+      "in_domain_auc": 0.999996320186784,
+      "in_domain_accuracy": 0.9987514566339271,
+      "in_domain_honeypot_recall": 0.9977621960316276,
+      "in_domain_production_fpr": 0.0,
+      "transfer_production_fpr": 0.00538942015366757,
+      "transfer_mean_p_honeypot": 0.1908285317053584,
+      "n_transfer_prod_flows": 108546
+    }
+  ],
+  "M_homogeneity": {
+    "honeypot": {
+      "n_flows": 580264,
+      "n_distinct_stack_profiles": 265,
+      "top1_profile_share": 0.9039540622888892,
+      "stack_entropy_bits": 0.5135965473578218
+    },
+    "cicids_tue": {
+      "n_flows": 108546,
+      "n_distinct_stack_profiles": 24,
+      "top1_profile_share": 0.4638125771562287,
+      "stack_entropy_bits": 1.7459909796983346
+    },
+    "first2015": {
+      "n_flows": 144398,
+      "n_distinct_stack_profiles": 330,
+      "top1_profile_share": 0.530118145680688,
+      "stack_entropy_bits": 2.0676213653568696
+    },
+    "note": "stack profile = (rounded fwd TTL, initial fwd window, SYN MSS). Lower entropy / higher top-1 share = a more infrastructure-uniform corpus. The honeypot corpus is a near-monolithic single-stack cluster, which is why a honeypot-trained detector rejects unseen production corpora without having learned any portable notion of honeypot-ness."
+  }
+}
